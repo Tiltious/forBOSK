@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { LayoutService } from "./service/app.layout.service";
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
     selector: 'app-topbar',
@@ -21,7 +22,7 @@ export class AppTopBarComponent {
 
     @ViewChild('btn') btn!: ElementRef;
     
-    constructor(public layoutService: LayoutService,private messageService: MessageService) { }
+    constructor(public layoutService: LayoutService,private messageService: MessageService,private keycloack:KeycloakService) { }
     ngOnInit() {
         this.items = [
             {
@@ -48,5 +49,8 @@ export class AppTopBarComponent {
 
     delete() {
         this.messageService.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted' });
+    }
+    logout() {
+        this.keycloack.logout();
     }
 }

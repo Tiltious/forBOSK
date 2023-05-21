@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +13,25 @@ import { NodeService } from './demo/service/node.service';
 import { PhotoService } from './demo/service/photo.service';
 import { MenuModule } from 'primeng/menu';
 import { ToastModule } from 'primeng/toast';
+import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+import { AuthGuard } from './demo/components/auth/auth.guard';
+
+const keycloakService = new KeycloakService();
+// function initializeKeycloak(keycloak: KeycloakService) {
+//     return () =>
+//       keycloak.init({
+//         config: {
+//           url: 'http://localhost:8081',
+//           realm: 'RealmForAll',
+//           clientId: 'myClient'
+//         },
+//         initOptions: {
+//           onLoad: 'check-sso',
+//           silentCheckSsoRedirectUri:
+//             window.location.origin + '/assets/silent-check-sso.html'
+//         }
+//       });
+//   }
 
 @NgModule({
     declarations: [
@@ -21,12 +40,41 @@ import { ToastModule } from 'primeng/toast';
     imports: [
         AppRoutingModule,
         AppLayoutModule,
+        KeycloakAngularModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService
+        PhotoService, ProductService,AuthGuard,
+        {
+            provide: KeycloakService,
+            useValue: keycloakService
+          }
     ],
-    bootstrap: [AppComponent]
+    // bootstrap: [AppComponent],
+    entryComponents: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {
+  ngDoBootstrap(app:any) {
+    keycloakService
+      .init({
+        config: {
+          url: 'http://localhost:8081/',
+          realm: 'RealmForAll',
+          clientId: 'myClient',
+        },
+        initOptions: {
+          onLoad: 'check-sso',
+          checkLoginIframe: false,
+        },
+        enableBearerInterceptor: true,
+        bearerExcludedUrls: [],
+      })
+      .then(() => {
+        app.bootstrap(AppComponent);
+      })
+      .catch((error) =>
+        console.error('[ngDoBootstrap] init Keycloak failed', error)
+      );
+  }
+ }

@@ -2,12 +2,14 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { NotfoundComponent } from './demo/components/notfound/notfound.component';
 import { AppLayoutComponent } from "./layout/app.layout.component";
+import { AuthGuard } from './demo/components/auth/auth.guard';
 
 @NgModule({
     imports: [
         RouterModule.forRoot([
             {
                 path: '', component: AppLayoutComponent,
+                canActivate:[AuthGuard],
                 children: [
                     { path: '', loadChildren: () => import('./demo/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
                     { path: 'uikit', loadChildren: () => import('./demo/components/uikit/uikit.module').then(m => m.UIkitModule) },
@@ -23,7 +25,8 @@ import { AppLayoutComponent } from "./layout/app.layout.component";
             { path: '**', redirectTo: '/notfound' },
         ], { scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled', onSameUrlNavigation: 'reload' })
     ],
-    exports: [RouterModule]
+    exports: [RouterModule],
+    providers: [AuthGuard],
 })
 export class AppRoutingModule {
 }
