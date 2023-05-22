@@ -36,7 +36,8 @@ export class AppTopBarComponent {
                     {
                         label: 'Logout',
                         icon: 'pi pi-upload',
-                        routerLink: '/fileupload'
+                        // routerLink: '/auth/logout',
+                        command:()=>{this.keycloack.logout();}
                     }
                 ]
             }

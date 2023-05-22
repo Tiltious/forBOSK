@@ -13,16 +13,15 @@
     </button>
 
     <div #topbarmenu class="layout-topbar-menu" [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
-        <button  class="p-link layout-topbar-button" (click)="logout()">hhh<i class="pi pi-bell"></i></button>
         <button class="p-link layout-topbar-button">
             <i class="pi pi-bell"></i>
-            <span>Calendar</span>
+            <span class="tohide">Calendar</span>
         </button>
         <button class="p-link layout-topbar-button" pButton type="button" (click)="menu.toggle($event)" icon="pi pi-bars" label="Show">
             <i class="pi pi-user"></i>
-            <span>Profile</span>
+            <span>Admin</span>
         </button>
-        <p-menu #menu [model]="items" [popup]="true"></p-menu>
+        <p-menu #menu [model]="items" [popup]="true" appendTo="body"></p-menu>
        
         <!-- <button class="p-link layout-topbar-button" [routerLink]="'/documentation'">
             <i class="pi pi-cog"></i>
