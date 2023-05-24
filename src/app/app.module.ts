@@ -59,9 +59,9 @@ export class AppModule {
     keycloakService
       .init({
         config: {
-          url: 'http://localhost:8081/',
-          realm: 'RealmForAll',
-          clientId: 'myClient',
+          url: 'https://160.40.204.30:8443',
+          realm: 'i4bydesign',
+          clientId: 'i4bydesign_dev',
         },
         initOptions: {
           onLoad: 'check-sso',
