@@ -9,6 +9,9 @@ import { ButtonModule } from 'primeng/button';
 import { StyleClassModule } from 'primeng/styleclass';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { DashboardsRoutingModule } from './dashboard-routing.module';
+import { CardModule } from 'primeng/card';
+import { DashbordchartsComponent } from './dashbordcharts.component';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 @NgModule({
     imports: [
@@ -20,8 +23,10 @@ import { DashboardsRoutingModule } from './dashboard-routing.module';
         StyleClassModule,
         PanelMenuModule,
         ButtonModule,
-        DashboardsRoutingModule
+        DashboardsRoutingModule,
+        CardModule,
+        NgxEchartsModule.forChild()
     ],
-    declarations: [DashboardComponent]
+    declarations: [DashboardComponent, DashbordchartsComponent]
 })
 export class DashboardModule { }

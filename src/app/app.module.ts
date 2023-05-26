@@ -15,6 +15,7 @@ import { MenuModule } from 'primeng/menu';
 import { ToastModule } from 'primeng/toast';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { AuthGuard } from './demo/components/auth/auth.guard';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 const keycloakService = new KeycloakService();
 // function initializeKeycloak(keycloak: KeycloakService) {
@@ -40,7 +41,8 @@ const keycloakService = new KeycloakService();
     imports: [
         AppRoutingModule,
         AppLayoutModule,
-        KeycloakAngularModule
+        KeycloakAngularModule,
+        NgxEchartsModule.forRoot({echarts: () => import('echarts'),}),
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
