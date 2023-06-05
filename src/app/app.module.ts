@@ -16,6 +16,7 @@ import { ToastModule } from 'primeng/toast';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { AuthGuard } from './demo/components/auth/auth.guard';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const keycloakService = new KeycloakService();
 // function initializeKeycloak(keycloak: KeycloakService) {
@@ -53,30 +54,30 @@ const keycloakService = new KeycloakService();
             useValue: keycloakService
           }
     ],
-    // bootstrap: [AppComponent],
-    entryComponents: [AppComponent],
+    bootstrap: [AppComponent],
+    // entryComponents: [AppComponent],
 })
 export class AppModule {
-  ngDoBootstrap(app:any) {
-    keycloakService
-      .init({
-        config: {
-          url: 'https://160.40.204.30:8443',
-          realm: 'i4bydesign',
-          clientId: 'i4bydesign_dev',
-        },
-        initOptions: {
-          onLoad: 'check-sso',
-          checkLoginIframe: false,
-        },
-        enableBearerInterceptor: true,
-        bearerExcludedUrls: [],
-      })
-      .then(() => {
-        app.bootstrap(AppComponent);
-      })
-      .catch((error) =>
-        console.error('[ngDoBootstrap] init Keycloak failed', error)
-      );
-  }
+  // ngDoBootstrap(app:any) {
+  //   keycloakService
+  //     .init({
+  //       config: {
+  //         url: 'https://160.40.204.30:8443',
+  //         realm: 'i4bydesign',
+  //         clientId: 'i4bydesign_dev',
+  //       },
+  //       initOptions: {
+  //         onLoad: 'check-sso',
+  //         checkLoginIframe: false,
+  //       },
+  //       enableBearerInterceptor: true,
+  //       bearerExcludedUrls: [],
+  //     })
+  //     .then(() => {
+  //       app.bootstrap(AppComponent);
+  //     })
+  //     .catch((error) =>
+  //       console.error('[ngDoBootstrap] init Keycloak failed', error)
+  //     );
+  // }
  }

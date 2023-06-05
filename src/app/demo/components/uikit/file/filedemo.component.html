@@ -1,19 +1,30 @@
-<div class="grid">
-    <div class="col-12">
-        <div class="card">
-            <h5>Advanced</h5>
-            <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)"
-                          [multiple]="true" accept="image/*" [maxFileSize]="1000000">
-                <ng-template pTemplate="content">
-                    <ul *ngIf="uploadedFiles.length">
-                        <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
-                    </ul>
-                </ng-template>
-            </p-fileUpload>
 
-            <h5>Basic</h5>
-            <p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*" [maxFileSize]="1000000" (onUpload)="onBasicUpload()"></p-fileUpload>
+<div class="card">
+    <p-dropdown [options]="project_select" [(ngModel)]="project" defaultLabel="Select a City" optionLabel="name" [style]="{'width': '100%'}" (onChange)="onChange()"></p-dropdown>
+</div>
 
+<div style="margin-bottom: 2rem;">
+    <div class="row flex justify-content-center" *ngIf="!!project">
+        <div class="col-3">
+            <h5 class="text-center mb-3" style="border-bottom: 1px solid gray;width: 90%;">Words</h5>
+            <form>
+                <div class="form-group mb-0" *ngFor="let i of project.data.Values|keyvalue;">
+                    <div class="row mx-0 flex justify-content-between" *ngIf="i.key!='Total'">
+                        <label class="mb-0 p-0 col-5 flex align-items-center">{{i.key}}</label>
+                        <input [value]="i.value" type="text" name="" id="" class="form-control col-5 mx-2" placeholder="" aria-describedby="helpId" disabled>
+                    </div>
+                </div>
+                <div class="form-group mb-0 mx-0 px-0">
+                    <div class="row mx-0 my-2 py-2 flex justify-content-between align-items-center" style="border-top: 1px solid gray;">
+                        <label for="" class="text-center col-5 p-0 m-0">Total</label>
+                        <input type="text" name="" id="" class="form-control col-5 py-0 mx-2" [value]="project.data.Values.Total" placeholder="" aria-describedby="helpId" disabled>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+        <div class="col-2" *ngFor="let i of [1,2,3,4]">
+            <app-form [project]="project" *ngIf="!!project"></app-form>
         </div>
     </div>
 </div>

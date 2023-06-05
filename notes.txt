@@ -1,0 +1,40 @@
+=====================================
+DETAILS
+=====================================
+file._attributes.name
+file._attributes.guid
+
+
+taskInfo.project._attributes.name
+taskInfo.project._attributes.number
+taskInfo.language._attributes.name
+taskInfo.language._attributes.lcid
+
+
+taskInfo.tm._attributes.name
+====================================
+DATA
+====================================
+batchTotal.analyse.crossFileRepeated   (yes)
+batchTotal.analyse.exact   (yes)
+batchTotal.analyse.fuzzy   (yes)[4]
+batchTotal.analyse.inContextExact    (yes)
+batchTotal.analyse.internalFuzzy   (yes)[3]
+batchTotal.analyse.locked
+batchTotal.analyse.new   (yes)
+batchTotal.analyse.newnewBaseline
+batchTotal.analyse.newLearnings
+batchTotal.analyse.perfect   (yes)
+batchTotal.analyse.repeated   (yes)
+batchTotal.analyse.total.    (yes)(later)
+    batchTotal.analyse.total.adaptiveWords
+    batchTotal.analyse.total.baselineWords
+    batchTotal.analyse.total.characters
+    batchTotal.analyse.total.edits
+    batchTotal.analyse.total.fullRecallWords
+    batchTotal.analyse.total.partialRecallWords
+    batchTotal.analyse.total.placeables
+    batchTotal.analyse.total.repairWords
+    batchTotal.analyse.total.segments
+    batchTotal.analyse.total.tags
+    batchTotal.analyse.total.words
