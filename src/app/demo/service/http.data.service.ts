@@ -12,4 +12,10 @@ export class HttpDataService {
   getAllProjects(body:any){
     return this.http.post(this.rootURL+'/bosk/xmttojson/all',body);
   }
+  saveWeight(body:any){
+    return this.http.post(this.rootURL+'/bosk/weights/save',body);
+  }
+  getAllWeights(){
+    return this.http.post(this.rootURL+'/bosk/weights/getAll',{});
+  }
 }

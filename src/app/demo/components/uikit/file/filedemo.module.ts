@@ -9,6 +9,7 @@ import { TableModule } from 'primeng/table';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormComponent } from './form/form.component';
+import { WeightnameComponent } from './form/weightname.component';
 
 
 @NgModule({
@@ -24,6 +25,6 @@ import { FormComponent } from './form/form.component';
 		MultiSelectModule,
 		DropdownModule
 	],
-	declarations: [FileDemoComponent, FormComponent],
+	declarations: [FileDemoComponent, FormComponent, WeightnameComponent],
 })
 export class FileDemoModule { }

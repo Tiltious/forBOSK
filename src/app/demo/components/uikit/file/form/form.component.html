@@ -1,22 +1,32 @@
 <div class="row">
-    <div class="col py-0 flex justify-content-center">
+    <div class="col py-0 flex flex-column">
         <h5 class="text-center mb-3 text-truncate" style="border-bottom: 1px solid gray;width: 90%;max-width: 90%;">Set or Company Name</h5>
     </div>
-    
-    <form [formGroup]="formgroup" class="p-0">
-        <div class="form-group mb-0" *ngFor="let i of project.data.Values|keyvalue;">
-            <div class="row mx-0 flex justify-content-around" *ngIf="i.key!='Total'" [formGroupName]="i.key">
-                <!-- <label class="px-0 mb-0 pb-0 col-4">{{i.key}}</label> -->
-                <input type="text" name="" formControlName="weight" id="" class="form-control col-5" placeholder="" aria-describedby="helpId" (change)="setControls(i.key)">
-                <input type="text" name="" id="" formControlName="words" class="form-control col-5" placeholder="" aria-describedby="helpId">
+    <div>
+        <form [formGroup]="formgroup" class="p-0">
+            <div class="form-group mb-0" *ngFor="let i of project.data.Values|keyvalue;">
+                <div class="row mx-0 flex justify-content-around" *ngIf="i.key!='Total'" [formGroupName]="i.key">
+                    <!-- <label class="px-0 mb-0 pb-0 col-4">{{i.key}}</label> -->
+                    <input type="text" name="" formControlName="weight" id="" class="form-control col-5" placeholder="" aria-describedby="helpId" (change)="setControls(i.key)">
+                    <input type="text" name="" id="" formControlName="words" class="form-control col-5" placeholder="" aria-describedby="helpId">
+                </div>
             </div>
-        </div>
-        <div class="form-group mb-0">
+            <div class="form-group mb-0">
                 <div class="row flex justify-content-around align-items-center mx-0 my-2 py-2" formGroupName="Total"style="border-top: 1px solid gray;">
                     <label for="" class="text-center col-5 p-0 mb-0">Total</label>
                     <input type="text" name="" id="" class="form-control col-5 py-0" formControlName="words" placeholder="" aria-describedby="helpId">
                 </div>
-        </div>
-    </form>
+                <div class="flex flex-column">
+                    <div class="flex justify-content-center">
+                        <p-button label="Save" (onClick)="show()"></p-button>
+                        <p-button label="Load" (onClick)="showload=!showload"></p-button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>    
 </div>
+    <div class="flex justify-content-center my-2" *ngIf="showload">
+        <p-dropdown [options]="weights_sets" [(ngModel)]="weight" optionLabel="Name" [style]="{'width': '100%'}" (onChange)="setWeights($event.value.Weights)"></p-dropdown>
+    </div>
 

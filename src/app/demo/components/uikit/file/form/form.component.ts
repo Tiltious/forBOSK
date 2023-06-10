@@ -1,22 +1,53 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ProjectMain } from 'src/app/demo/class/files-details';
+import { HttpDataService } from 'src/app/demo/service/http.data.service';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { WeightnameComponent } from './weightname.component';
 
 interface ProjectSelect {
   name: string,
   data: ProjectMain
 }
+
+interface Weights {
+  Name: string,
+  Weights: ProjectMain
+}
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
-  styleUrls: ['./form.component.scss']
+  providers: [DialogService]
 })
 export class FormComponent implements OnInit{
   @Input() project!:ProjectSelect;
+  weight!:ProjectSelect;
   formgroup!:FormGroup;
-  constructor(private fb:FormBuilder){}
+  weights_sets!:any[];
+  ref!: DynamicDialogRef;
+  showload=false;
+  constructor(private fb:FormBuilder,private http:HttpDataService,public dialogService: DialogService){
+    this.http.getAllWeights().subscribe(
+      (response:any)=>{
+        console.log(response)
+        this.weights_sets = response;
+      }
+    )
+  }
   ngOnInit() {}
-  
+  show() {
+    this.ref = this.dialogService.open(WeightnameComponent, { header: 'Save weight set', data:this.formgroup.value});
+  }
+  setWeights(event:any){
+    console.log(event,'event')
+    console.log(this.formgroup.value,'form value')
+    for(let i in event){
+      console.log(i)
+      this.formgroup.get(i)?.get('weight')?.setValue(event[i].weight)
+    }
+    console.log(this.formgroup.value)
+
+  }
   setControls(groupName:any){
     // this.formgroup.controls[controlName].setValue(this.project.data.Values)
     const x = this.formgroup.get(groupName)?.get('weight')?.value; 
@@ -33,6 +64,14 @@ export class FormComponent implements OnInit{
     console.log(sum,'sum')
     this.formgroup.get('Total')?.get('words')?.setValue(sum)
   }
+  // saveWeights(){
+  //   console.log(this.formgroup.value)
+  //   this.http.saveWeight({Name:'TestName',Weights:this.formgroup.value}).subscribe(
+  //     (res:any)=>{
+  //       console.log(res)
+  //     }
+  //   )
+  // }
   ngOnChanges(){
     this.formgroup = this.fb.group({})
     const c:any = this.project.data.Values;
@@ -43,6 +82,6 @@ export class FormComponent implements OnInit{
       this.formgroup.addControl(i,control)
       control.controls['words'].disable();
     }
-    console.log(this.formgroup.value,'fb')
+    // console.log(this.formgroup.value,'fb')
   }
 }
